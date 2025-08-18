@@ -1,0 +1,58 @@
+[package]
+name = "modernterm"
+version = "0.1.0"
+edition = "2021"
+authors = ["Developer <dev@example.com>"]
+description = "Modern terminal emulator with Alacritty & Makepad"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/modernterm/modernterm"
+keywords = ["terminal", "emulator", "gui", "makepad", "alacritty"]
+categories = ["command-line-utilities", "gui"]
+
+[dependencies]
+# 백엔드 (tterm 검증된 버전)
+alacritty_terminal = "0.25.0"  # tterm에서 성공적으로 사용 중
+
+# rustix 버전 고정 (alacritty_terminal과 호환)
+rustix = "=0.38.44"
+
+# GUI 프레임워크 (최신 버전)
+makepad-widgets = "1.0"
+
+# 시스템 & 유틸리티 (검증됨)
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+tokio = { version = "1.0", features = ["full"] }
+unicode-width = "0.2"
+anyhow = "1.0"
+log = "0.4"
+chrono = "0.4"
+
+# 플랫폼별 (검증됨)
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+env_logger = "0.11"
+
+
+
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["winuser", "processthreadsapi"] }
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[features]
+default = []
+debug = []
+
+[[bin]]
+name = "modernterm"
+path = "src/main.rs"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.dev]
+debug = true
