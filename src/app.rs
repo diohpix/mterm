@@ -12,6 +12,13 @@ live_design!{
     use link::shaders::*;
     use link::widgets::*;
     
+    pub D2_CODING_FONT = {
+        font_family:{
+            latin = font("crate://self/assets/fonts/D2Coding.ttf", 0.0, 0.0),
+            cjk = font("crate://self/assets/fonts/D2Coding.ttf", 0.0, -0.5),
+        },
+        line_spacing: 1.0
+    } 
     // Use system default font for now
     // D2_CODING_FONT = {
     //     path: dep("crate://self/assets/fonts/D2Coding.ttf") 
@@ -91,9 +98,9 @@ live_design!{
                             padding: {left: 12, right: 12, top: 12, bottom: 12},
                             draw_text: {
                                 color: #c0c0c0,
-                                text_style: {
-                                    font_size: 10.0,
-                                    line_spacing: 1.2
+                                text_style:<D2_CODING_FONT>  {                                    
+                                    font_size: 9.0,
+                                    line_spacing: 1.0
                                 }
                             },
                             text: "",
